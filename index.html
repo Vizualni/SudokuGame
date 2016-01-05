@@ -1,16 +1,50 @@
 <!doctype html>
 <head>
-	<script type="text/javascript" src="js/sudoku.js"></script>
-	<script type="text/javascript">
-	var textBoard = "1.......2.9.4...5...6...7...5.9.3.......7.......85..4.7.....6...3...9.8...2.....1";
-	var sudoku = new Sudoku(textBoard);
-	
-	</script>
+	<style type="text/css">
+	.sudokuTable {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	input.sudokuElement {
+		width: 50%;
+	}
+
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+	    /* display: none; <- Crashes Chrome on hover */
+	    -webkit-appearance: none;
+	    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+	}
+
+
+	</style>
 </head>
 
 <body>
-	<div id="sudokuboard">
+	<div id="sudokuboard" style="width:500px; height:500px;">
 	</div>
+
+
+	<script type="text/javascript" src="js/sudoku.js"></script>
+	<script type="text/javascript" src="js/sudokufront.js"></script>
+
+	<script type="text/javascript">
+	var textBoard1 = "17438596.293467158586192734451923876928674315367851249719548623635219487842736591";
+	var textBoard = "1.......2.9.4...5...6...7...5.9.3.......7.......85..4.7.....6...3...9.8...2.....1";
+	var sudoku = new Sudoku(textBoard1);
+
+
+	var sudokuFront = new SudokuFront(
+		{
+			sudokuBoard: textBoard1,
+			winEvent: function(){alert("yaaay");},
+			sudokuDivId: "#sudokuboard"
+
+		}
+	);
+
+	</script>
 </body>
 
 </html>

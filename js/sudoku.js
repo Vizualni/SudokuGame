@@ -33,11 +33,13 @@ Sudoku.prototype.prefill = function(firstBoard) {
 		}
 		copyBoard[i] = board[i].slice(0);
 	}
+	this.board = board;
 	if (this.isValid()==false) {
 		throw "String is not valid";
 	}
-	this.board = board;
 	this.originalBoard = copyBoard;
+
+
 }
 
 Sudoku.prototype.nextMove = function(x, y, digit) {
@@ -54,6 +56,11 @@ Sudoku.prototype.nextMove = function(x, y, digit) {
 		// solved
 		this.win();
 		return true;
+	}
+
+
+	if (everythingFilled && !validBoard) {
+		throw "There is some major error.";
 	}
 
 	if (!validBoard) {
@@ -74,6 +81,9 @@ Sudoku.prototype.set = function(x, y, digit) {
 	}
 
 	digit = parseInt(digit);
+	if (digit<1 || digit>9) {
+		throw "Third argument must be digit: 1, 2, 3, 4, 5, 6, 7, 8, 9.";
+	}
 	this.board[x][y] = digit;
 };
 
