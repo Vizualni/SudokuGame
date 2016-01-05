@@ -2,12 +2,21 @@
 <head>
 	<style type="text/css">
 	.sudokuTable {
-		width: 100%;
 		table-layout: fixed;
+		word-wrap:break-word;
+	}
+
+	.sudokuTable td {
+		padding:0.7em;
 	}
 
 	input.sudokuElement {
 		width: 50%;
+		margin:0;
+	}
+
+	.add-background {
+		background-color: #999999;
 	}
 
 	input::-webkit-outer-spin-button,

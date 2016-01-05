@@ -25,7 +25,7 @@ SudokuFront.prototype.createTable = function() {
 				element.setAttribute('min', '1')
 				element.setAttribute('x', i);
 				element.setAttribute('y', j);
-				element.setAttribute('class', 'sudokuElement');
+				element.classList.add('sudokuElement');
 				var that1 = this;
 				element.onchange = function(e) {
 					var that = that1;
@@ -45,8 +45,10 @@ SudokuFront.prototype.createTable = function() {
 					}
 				}
 			}
-
 			var td = document.createElement("td");
+			var x=Math.floor(i/3), y=Math.floor(j/3);
+			if (x%2==y%2) {td.classList.add('add-background');};
+
 			td.appendChild(element);
 			row.appendChild(td);
 		}
