@@ -1,6 +1,7 @@
 var Sudoku = function (firstBoard) {
 	this._SIZE = 9;
 	this.emptyField = 0;
+	this.originalBoard = [];
 	if (firstBoard===undefined) {
 		this.createEmptyBoard();
 	} else {
@@ -24,16 +25,19 @@ Sudoku.prototype.prefill = function(firstBoard) {
 		throw "Board is the wrong size";
 	}
 	var board = new Array(this._SIZE);
+	var copyBoard = new Array(this._SIZE);
 	for(var i=0; i<this._SIZE; i++) {
 		board[i] = new Array(this._SIZE);
 		for(var j=0; j<this._SIZE; j++){
 			board[i][j] = (function(d){if(d=='.')return 0; return parseInt(d)})(firstBoard[i*this._SIZE+j]);
 		}
+		copyBoard[i] = board[i].slice(0);
 	}
 	if (this.isValid()==false) {
 		throw "String is not valid";
 	}
 	this.board = board;
+	this.originalBoard = copyBoard;
 }
 
 Sudoku.prototype.nextMove = function(x, y, digit) {
@@ -64,9 +68,14 @@ Sudoku.prototype.set = function(x, y, digit) {
 	if (isNaN(digit) || digit=='0') {
 		throw "Third argument must be digit: 1, 2, 3, 4, 5, 6, 7, 8, 9.";
 	}
+
+	if (this.originalBoard[x][y]!=0) {
+		throw "Cant change original board value.";
+	}
+
 	digit = parseInt(digit);
 	this.board[x][y] = digit;
-}
+};
 
 Sudoku.prototype.get = function(x, y) {
 	return this.board[x][y];
@@ -75,7 +84,7 @@ Sudoku.prototype.get = function(x, y) {
 Sudoku.prototype.isEverythingFilled = function() {
 	for(var x in this.board) {
 		for(var y in this.board[x]) {
-			if (board[x][y]==this.emptyField) {
+			if (this.board[x][y]==this.emptyField) {
 				return false;
 			}
 		}
