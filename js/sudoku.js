@@ -13,7 +13,6 @@ Sudoku.prototype.createEmptyBoard = function() {
 	for(var i=0; i<this._SIZE; i++) {
 		this.board[i] = new Array(this._SIZE).fill(0);
 	}
-	console.log(this.board);
 };
 
 Sudoku.prototype.prefill = function(firstBoard) {
@@ -26,7 +25,10 @@ Sudoku.prototype.prefill = function(firstBoard) {
 	}
 	var board = new Array(this._SIZE);
 	for(var i=0; i<this._SIZE; i++) {
-		board[i] = new Array(this._SIZE).map(function(d){if(d=='.')return 0; return parseInt(d)});
+		board[i] = new Array(this._SIZE);
+		for(var j=0; j<this._SIZE; j++){
+			board[i][j] = (function(d){if(d=='.')return 0; return parseInt(d)})(firstBoard[i*this._SIZE+j]);
+		}
 	}
 	if (this.isValid()==false) {
 		throw "String is not valid";
